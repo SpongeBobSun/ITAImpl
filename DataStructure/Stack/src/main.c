@@ -15,7 +15,13 @@
 int main(void) {
 //	puts("!!!Hello World!!!"); /* prints !!!Hello World!!! */
 	Stack* stack = NewStack(10);
-	stack->pop();
-	stack->push(1);
+	stack->push(stack, 1);
+	stack->push(stack, 2);
+	stack->push(stack, 3);
+	stack->push(stack, 4);
+	for (int i = 0; i < stack->size; i ++){
+		printf("%d,", stack->pop(stack));
+	}
+	printf("\n Stack length:%d", stack->top);
 	return EXIT_SUCCESS;
 }

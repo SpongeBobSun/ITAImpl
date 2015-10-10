@@ -11,13 +11,15 @@
 #include <stdlib.h>
 
 typedef struct StackStruct{
+	int size;
+	int top;
 	int* data;
-	int (*pop)();
-	void (*push)(int elemeqnt);
+	int (*pop)(struct StackStruct*);
+	void (*push)(struct StackStruct*,int);
 } Stack;
 
-int popImpl();
-void pushImpl(int);
+int popImpl(Stack*);
+void pushImpl(Stack*, int);
 Stack* NewStack(int size);
 
 #endif /* STACK_H_ */
