@@ -14,12 +14,15 @@ typedef struct StackStruct{
 	int size;
 	int top;
 	int* data;
+	int free;
 	int (*pop)(struct StackStruct*);
-	void (*push)(struct StackStruct*,int);
+	int (*push)(struct StackStruct*,int);
+	int (*isFull)(struct StackStruct*);
 } Stack;
 
 int popImpl(Stack*);
-void pushImpl(Stack*, int);
+int pushImpl(Stack*, int);
 Stack* NewStack(int size);
+int isFullImpl(Stack*);
 
 #endif /* STACK_H_ */

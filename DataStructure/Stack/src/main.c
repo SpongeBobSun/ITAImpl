@@ -14,11 +14,19 @@
 
 int main(void) {
 //	puts("!!!Hello World!!!"); /* prints !!!Hello World!!! */
-	Stack* stack = NewStack(10);
+	Stack* stack = NewStack(6);
 	stack->push(stack, 1);
 	stack->push(stack, 2);
 	stack->push(stack, 3);
 	stack->push(stack, 4);
+	stack->push(stack, 5);
+	stack->push(stack, 6);
+	stack->pop(stack);
+	stack->pop(stack);
+	stack->pop(stack);
+	stack->push(stack, 7);
+	stack->push(stack, 8);
+	stack->push(stack, 9);
 	for (int i = 0; i < stack->size; i ++){
 		printf("%d,", stack->pop(stack));
 	}
