@@ -12,6 +12,10 @@ Node* prevImpl(LinkedList*);
 Node* nextImpl(LinkedList*);
 LinkedList* insertImpl(LinkedList*, Node*, int);
 LinkedList* appendImpl(LinkedList*, Node*);
+Node* searchImpl(LinkedList*, Node*);
+int deleteImpl(LinkedList*, Node*);
+int deleteAtImpl(LinkedList*, int);
+Node* getAtImpl(LinkedList*, int);
 
 LinkedList* NewLinkedList(){
 	LinkedList* ret = (LinkedList*) malloc(sizeof(LinkedList));
@@ -22,6 +26,12 @@ LinkedList* NewLinkedList(){
 	ret->insert = insertImpl;
 	ret->next = nextImpl;
 	ret->prev = prevImpl;
+
+	ret->search = searchImpl;
+	ret->delete = deleteImpl;
+	ret->deleteAt = deleteAtImpl;
+	ret->getAt = getAtImpl;
+
 	ret->size = 0;
 	ret->head = head;
 	ret->current = head;
@@ -42,8 +52,9 @@ Node* nextImpl(LinkedList* this){
 	if (this->current->next != NULL){
 		this->current = this->current->next;
 		this->currentIndex ++;
+		return this->current;
 	}
-	return this->current;
+	return NULL;
 }
 
 LinkedList* insertImpl(LinkedList* this, Node* element, int position){
@@ -86,4 +97,75 @@ LinkedList* appendImpl(LinkedList* this, Node* element){
 	element->next = NULL;
 	this->size ++;
 	return this;
+}
+
+Node* searchImpl(LinkedList* this, Node* key){
+	if (this->size == 0){
+		return NULL;
+	}
+	int count = 0;
+	Node* ret = this->head->next;
+	while (ret != NULL && ret->equals(ret, key) != 0){
+		count++;
+		ret = ret->next;
+	}
+	if (ret != NULL){
+		this->currentIndex = count;
+		this->current = ret;
+	}
+	return ret;
+}
+
+int deleteImpl(LinkedList* this, Node* junk){
+	Node* foo = this->search(this, junk);
+	if (foo == NULL){
+		return -1;
+	}
+	foo->prev->next = foo->next;
+	if (foo->next != NULL)
+		foo->next->prev = foo->prev;
+	this->size--;
+	free(foo);
+	return 0;
+}
+
+int deleteAtImpl(LinkedList* this, int position){
+	if (position > this->size){
+		return -1;
+	}
+	int index = this->currentIndex;
+	if (this->currentIndex < position){
+		for (int i = 0; i < position - (index + 1); i++){
+			this->next(this);
+		}
+	} else {
+		for (int i = 0; i < (index + 1) - position; i++){
+			this->prev(this);
+		}
+	}
+	this->current->prev = this->current->next;
+	if (this->current->next != NULL)
+		this->current->next->prev = this->current->prev;
+	free(this->current);
+	this->current = this->current->prev;
+	this->currentIndex--;
+	this->size --;
+	return 0;
+}
+
+Node* getAtImpl(LinkedList* this, int position){
+	if (position >= this->size){
+		return NULL;
+	}
+	int index = this->currentIndex;
+	if (this->currentIndex < position){
+		for (int i = 0; i < position - (index + 1); i++){
+			this->next(this);
+		}
+	} else {
+		for (int i = 0; i < (index + 1) - position; i++){
+			this->prev(this);
+		}
+	}
+	return this->current;
 }

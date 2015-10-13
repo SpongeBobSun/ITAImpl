@@ -15,6 +15,7 @@
 
 int main(void) {
 	puts("!!!Hello World!!!"); /* prints !!!Hello World!!! */
+	//Basic Feature Testing
 	LinkedList* list = NewLinkedList();
 	list->append(list,NewNode(1));
 	list->append(list,NewNode(3));
@@ -41,5 +42,26 @@ int main(void) {
 		head = head->next;
 		printf("%d, ", head->element);
 	}
+	printf("\n");
+	//Advanced Feature Testing
+	//Search
+	Node* result;
+	result = list->search(list, NewNode(4));
+	printf("Search Result:%d, At: %d \n", result == NULL ? -2 : result->element, list->currentIndex);
+	result = list->search(list, NewNode(-1));
+	printf("Search Result:%d, At: %d \n", result == NULL ? -2 : result->element, list->currentIndex);
+	result = list->search(list, NewNode(7));
+	printf("Search Result:%d, At: %d \n", result == NULL ? -2 : result->element, list->currentIndex);
+	result = list->search(list, NewNode(404));
+	printf("Search Result:%d, At: %d \n", result == NULL ? -2 : result->element, list->currentIndex);
+	//GetAt
+	result = list->getAt(list, 5);
+	printf("GetResult: %d, At: %d \n", result->element, list->currentIndex);
+	result = list->getAt(list, 0);
+	printf("GetResult: %d, At: %d \n", result->element, list->currentIndex);
+	result = list->getAt(list, list->size - 1);
+	printf("GetResult: %d, At: %d \n", result->element, list->currentIndex);
+	result = list->getAt(list, list->size);
+	printf("GetResult: %d, At: %d \n", result->element, list->currentIndex);
 	return EXIT_SUCCESS;
 }

@@ -14,6 +14,7 @@ typedef struct NodeStruct{
 	int element;
 	struct NodeStruct* prev;
 	struct NodeStruct* next;
+	int (*equals)(struct NodeStruct*, struct NodeStruct*);
 } Node;
 
 Node* NewNode(int element);

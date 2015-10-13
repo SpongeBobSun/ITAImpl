@@ -20,6 +20,12 @@ typedef struct LinkedListStruct{
 	struct LinkedListStruct* (*append)(struct LinkedListStruct*, Node*);
 	int size;
 	int currentIndex;
+
+	//Advanced Interfaces
+	Node* (*search)(struct LinkedListStruct*, Node*);
+	int (*delete)(struct LinkedListStruct*, Node*);
+	int (*deleteAt)(struct LinkedListStruct*, int);
+	Node* (*getAt)(struct LinkedListStruct*, int);
 } LinkedList;
 
 LinkedList* NewLinkedList();
