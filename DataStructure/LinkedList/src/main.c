@@ -62,6 +62,27 @@ int main(void) {
 	result = list->getAt(list, list->size - 1);
 	printf("GetResult: %d, At: %d \n", result->element, list->currentIndex);
 	result = list->getAt(list, list->size);
-	printf("GetResult: %d, At: %d \n", result->element, list->currentIndex);
+	printf("GetResult: %d, At: %d \n", result != NULL ? result->element : -100, list->currentIndex);
+	//delete
+	list->delete(list, NewNode(-1));
+	list->delete(list, NewNode(2));
+	list->delete(list, NewNode(7));
+
+	head = list->head;
+	while(head->next != NULL){
+			head = head->next;
+			printf("%d, ", head->element);
+	}
+	printf("\n");
+	//deleteAt
+	list->deleteAt(list, 0);
+	list->deleteAt(list, 2);
+	list->deleteAt(list, list->size - 1);
+
+	head = list->head;
+	while(head->next != NULL){
+		head = head->next;
+		printf("%d, ", head->element);
+	}
 	return EXIT_SUCCESS;
 }

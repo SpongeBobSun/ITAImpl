@@ -130,20 +130,20 @@ int deleteImpl(LinkedList* this, Node* junk){
 }
 
 int deleteAtImpl(LinkedList* this, int position){
-	if (position > this->size){
+	if (position >= this->size){
 		return -1;
 	}
 	int index = this->currentIndex;
 	if (this->currentIndex < position){
-		for (int i = 0; i < position - (index + 1); i++){
+		for (int i = 0; i < position - index; i++){
 			this->next(this);
 		}
 	} else {
-		for (int i = 0; i < (index + 1) - position; i++){
+		for (int i = 0; i < index - position; i++){
 			this->prev(this);
 		}
 	}
-	this->current->prev = this->current->next;
+	this->current->prev->next = this->current->next;
 	if (this->current->next != NULL)
 		this->current->next->prev = this->current->prev;
 	free(this->current);
@@ -159,11 +159,11 @@ Node* getAtImpl(LinkedList* this, int position){
 	}
 	int index = this->currentIndex;
 	if (this->currentIndex < position){
-		for (int i = 0; i < position - (index + 1); i++){
+		for (int i = 0; i < position - index; i++){
 			this->next(this);
 		}
 	} else {
-		for (int i = 0; i < (index + 1) - position; i++){
+		for (int i = 0; i < index - position; i++){
 			this->prev(this);
 		}
 	}
